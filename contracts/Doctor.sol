@@ -5,6 +5,7 @@ pragma solidity ^0.4.8;
 
 contract Doctor {
     bytes32 name;
+    event PrescriptionCreated();
 
     function Doctor(bytes32 nameParam) public {
         name = nameParam;
@@ -15,6 +16,7 @@ contract Doctor {
         prescriptionAddr = newPrescription;
         doctorAddr = this;
         patientAddr = patient;
+        PrescriptionCreated();
     }
 
     function getData() public returns (string) {
