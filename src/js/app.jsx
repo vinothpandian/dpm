@@ -23,7 +23,7 @@ class App extends Component {
     let scanner = new Instascan.Scanner({
       video: document.getElementById('preview') });
     scanner.addListener('scan', function (content) {
-      document.location.href = "http://localhost:8080/patient/"+content
+      $("")
     });
     Instascan.Camera.getCameras().then(function (cameras) {
       if (cameras.length > 0) {
@@ -34,6 +34,9 @@ class App extends Component {
     }).catch(function (e) {
       console.error(e);
     })
+
+    print
+
   }
 
   render () {
@@ -61,6 +64,7 @@ class App extends Component {
           </div>
           <div className="col-auto">
             <video id="preview" width="500"></video>
+            <div id="patientID"></div>
           </div>
         </div>
         <div id="alertUser" className="text-center"></div>

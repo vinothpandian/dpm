@@ -50,9 +50,8 @@ contract Prescription {
         p.removePrescription(this);
     }
 
-    function getData() public constant returns (string) {
-        // Doctor d = Doctor(doctor);
-        return bytes32ToString(drugName);
+    function getData() public returns (string text) {
+        text = bytes32ToString(drugName);
     }
 
     function bytes32ToString(bytes32 x) private returns (string) {

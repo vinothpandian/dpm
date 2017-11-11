@@ -3,6 +3,13 @@ import PropTypes from 'prop-types'
 
 class Patient extends Component {
   render () {
+
+    const Child = ({ match }) => (
+      <div>
+        <h3>ID: {match.params.id}</h3>
+      </div>
+    )
+
     return (
       <div>
         <div className="section text-center py-5">
@@ -23,7 +30,7 @@ class Patient extends Component {
         </nav>
         <div className="row justify-content-center align-items-center">
           <div className="col-auto">
-            <img src={doctorLogo} alt="Doctor Logo" width="500"/>
+            <Child />
           </div>
           <div className="col-auto">
             <video id="preview" width="500"></video>
