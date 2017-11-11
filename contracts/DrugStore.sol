@@ -14,7 +14,7 @@ contract DrugStore {
         Prescription pre = Prescription(prescription);
         if (p.validPrescription(pre)) {
             pre.deliver();
-            pre.getData();
+            // pre.getData();
         }
     }
 }
