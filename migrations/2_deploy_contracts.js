@@ -1,8 +1,11 @@
-var ConvertLib = artifacts.require("./ConvertLib.sol");
-var MetaCoin = artifacts.require("./MetaCoin.sol");
+var Prescription = artifacts.require("./Prescription.sol");
+var Doctor = artifacts.require("./Doctor.sol");
+var DrugStore = artifacts.require("./DrugStore.sol");
+var Patient = artifacts.require("./Patient.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(ConvertLib);
-  deployer.link(ConvertLib, MetaCoin);
-  deployer.deploy(MetaCoin);
+  deployer.deploy(Prescription);
+  deployer.deploy(Doctor);
+  deployer.deploy(DrugStore);
+  deployer.deploy(Patient);
 };
