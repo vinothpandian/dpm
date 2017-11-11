@@ -29,8 +29,10 @@ contract Patient {
         return data == prescription;
     }
 
-    function getData() public returns (string, string, string) {
-        return ( bytes32ToString(ssn), bytes32ToString(insuranceId), bytes32ToString(insuranceName));
+    function getData() public returns (string ssnRet, string insuranceIdRet, string insuranceNameRet) {
+        ssnRet = bytes32ToString(ssn);
+        insuranceIdRet = bytes32ToString(insuranceId);
+        insuranceNameRet = bytes32ToString(insuranceName);
     }
 
     function bytes32ToString(bytes32 x) private returns (string) {
