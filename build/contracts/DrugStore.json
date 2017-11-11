@@ -36,18 +36,18 @@
       "type": "constructor"
     }
   ],
-  "bytecode": "0x6060604052341561000f57600080fd5b60405160208061037883398101604052808051906020019091905050806000816000191690555050610332806100466000396000f300606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632c2146aa14610046575b600080fd5b341561005157600080fd5b61009c600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610117565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100dc5780820151818401526020810190506100c1565b50505050905090810190601f1680156101095780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b61011f6102f2565b6000808491508390508173ffffffffffffffffffffffffffffffffffffffff166271a32f826000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b15156101ca57600080fd5b6102c65a03f115156101db57600080fd5b50505060405180519050156102ea578073ffffffffffffffffffffffffffffffffffffffff1663fd3e50a76040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401600060405180830381600087803b151561024d57600080fd5b6102c65a03f1151561025e57600080fd5b5050508073ffffffffffffffffffffffffffffffffffffffff16633bc5de306000604051602001526040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15156102cd57600080fd5b6102c65a03f115156102de57600080fd5b50505060405180519050505b505092915050565b6020604051908101604052806000815250905600a165627a7a72305820716e9b7eed954426b730a19c5761d3e4c724f10d4883e2e479e9ce82f187b36f0029",
-  "deployedBytecode": "0x606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632c2146aa14610046575b600080fd5b341561005157600080fd5b61009c600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610117565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100dc5780820151818401526020810190506100c1565b50505050905090810190601f1680156101095780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b61011f6102f2565b6000808491508390508173ffffffffffffffffffffffffffffffffffffffff166271a32f826000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b15156101ca57600080fd5b6102c65a03f115156101db57600080fd5b50505060405180519050156102ea578073ffffffffffffffffffffffffffffffffffffffff1663fd3e50a76040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401600060405180830381600087803b151561024d57600080fd5b6102c65a03f1151561025e57600080fd5b5050508073ffffffffffffffffffffffffffffffffffffffff16633bc5de306000604051602001526040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401602060405180830381600087803b15156102cd57600080fd5b6102c65a03f115156102de57600080fd5b50505060405180519050505b505092915050565b6020604051908101604052806000815250905600a165627a7a72305820716e9b7eed954426b730a19c5761d3e4c724f10d4883e2e479e9ce82f187b36f0029",
-  "sourceMap": "50:405:1:-;;;94:70;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;152:5;145:4;:12;;;;;;;94:70;50:405;;;;;;",
-  "deployedSourceMap": "50:405:1:-;;;;;;;;;;;;;;;;;;;;;;;;170:283;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;170:283:1;241:6;;:::i;:::-;259:9;297:16;279:7;259:28;;329:12;297:45;;356:1;:19;;;376:3;356:24;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;352:95;;;396:3;:11;;;:13;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;423:3;:11;;;:13;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;352:95;170:283;;;;;;:::o;50:405::-;;;;;;;;;;;;;;;:::o",
-  "source": "pragma solidity ^0.4.8;\n\nimport \"./Patient.sol\";\n\ncontract DrugStore {\n    bytes32 name;\n\n    function DrugStore(bytes32 nameP) public {\n        name = nameP;\n    }\n\n    function verify(address patient, address prescription) public returns (string) {\n        Patient p = Patient(patient);\n        Prescription pre = Prescription(prescription);\n        if (p.validPrescription(pre)) {\n            pre.deliver();\n            pre.getData();\n        }\n    }\n}\n",
+  "bytecode": "0x6060604052341561000f57600080fd5b6040516020806102f0833981016040528080519060200190919050508060008160001916905550506102aa806100466000396000f300606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632c2146aa14610046575b600080fd5b341561005157600080fd5b61009c600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610117565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100dc5780820151818401526020810190506100c1565b50505050905090810190601f1680156101095780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b61011f61026a565b6000808491508390508173ffffffffffffffffffffffffffffffffffffffff166271a32f826000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b15156101ca57600080fd5b6102c65a03f115156101db57600080fd5b5050506040518051905015610262578073ffffffffffffffffffffffffffffffffffffffff1663fd3e50a76040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401600060405180830381600087803b151561024d57600080fd5b6102c65a03f1151561025e57600080fd5b5050505b505092915050565b6020604051908101604052806000815250905600a165627a7a72305820aa17e1195942634aa78bdaef11017514d4e80824cb4b1646ba1cafee0061ab310029",
+  "deployedBytecode": "0x606060405260043610610041576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680632c2146aa14610046575b600080fd5b341561005157600080fd5b61009c600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610117565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100dc5780820151818401526020810190506100c1565b50505050905090810190601f1680156101095780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b61011f61026a565b6000808491508390508173ffffffffffffffffffffffffffffffffffffffff166271a32f826000604051602001526040518263ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001915050602060405180830381600087803b15156101ca57600080fd5b6102c65a03f115156101db57600080fd5b5050506040518051905015610262578073ffffffffffffffffffffffffffffffffffffffff1663fd3e50a76040518163ffffffff167c0100000000000000000000000000000000000000000000000000000000028152600401600060405180830381600087803b151561024d57600080fd5b6102c65a03f1151561025e57600080fd5b5050505b505092915050565b6020604051908101604052806000815250905600a165627a7a72305820aa17e1195942634aa78bdaef11017514d4e80824cb4b1646ba1cafee0061ab310029",
+  "sourceMap": "50:408:1:-;;;94:70;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;152:5;145:4;:12;;;;;;;94:70;50:408;;;;;;",
+  "deployedSourceMap": "50:408:1:-;;;;;;;;;;;;;;;;;;;;;;;;170:286;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;23:1:-1;8:100;33:3;30:1;27:2;8:100;;;99:1;94:3;90;84:5;80:1;75:3;71;64:6;52:2;49:1;45:3;40:15;;8:100;;;12:14;3:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;170:286:1;241:6;;:::i;:::-;259:9;297:16;279:7;259:28;;329:12;297:45;;356:1;:19;;;376:3;356:24;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;352:98;;;396:3;:11;;;:13;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;352:98;170:286;;;;;;:::o;50:408::-;;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.4.8;\n\nimport \"./Patient.sol\";\n\ncontract DrugStore {\n    bytes32 name;\n\n    function DrugStore(bytes32 nameP) public {\n        name = nameP;\n    }\n\n    function verify(address patient, address prescription) public returns (string) {\n        Patient p = Patient(patient);\n        Prescription pre = Prescription(prescription);\n        if (p.validPrescription(pre)) {\n            pre.deliver();\n            // pre.getData();\n        }\n    }\n}\n",
   "sourcePath": "/Users/ali/rwth/hackathon/dpm/contracts/DrugStore.sol",
   "ast": {
     "attributes": {
       "absolutePath": "/Users/ali/rwth/hackathon/dpm/contracts/DrugStore.sol",
       "exportedSymbols": {
         "DrugStore": [
-          213
+          208
         ]
       }
     },
@@ -67,10 +67,10 @@
       },
       {
         "attributes": {
-          "SourceUnit": 692,
+          "SourceUnit": 687,
           "absolutePath": "/Users/ali/rwth/hackathon/dpm/contracts/Patient.sol",
           "file": "./Patient.sol",
-          "scope": 214,
+          "scope": 209,
           "symbolAliases": [
             null
           ],
@@ -92,17 +92,17 @@
           "documentation": null,
           "fullyImplemented": true,
           "linearizedBaseContracts": [
-            213
+            208
           ],
           "name": "DrugStore",
-          "scope": 214
+          "scope": 209
         },
         "children": [
           {
             "attributes": {
               "constant": false,
               "name": "name",
-              "scope": 213,
+              "scope": 208,
               "stateVariable": true,
               "storageLocation": "default",
               "type": "bytes32",
@@ -134,7 +134,7 @@
               ],
               "name": "DrugStore",
               "payable": false,
-              "scope": 213,
+              "scope": 208,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -257,7 +257,7 @@
               ],
               "name": "verify",
               "payable": false,
-              "scope": 213,
+              "scope": 208,
               "stateMutability": "nonpayable",
               "superFunction": null,
               "visibility": "public"
@@ -269,7 +269,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "patient",
-                      "scope": 212,
+                      "scope": 207,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -295,7 +295,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "prescription",
-                      "scope": 212,
+                      "scope": 207,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -328,7 +328,7 @@
                     "attributes": {
                       "constant": false,
                       "name": "",
-                      "scope": 212,
+                      "scope": 207,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "string memory",
@@ -368,7 +368,7 @@
                         "attributes": {
                           "constant": false,
                           "name": "p",
-                          "scope": 212,
+                          "scope": 207,
                           "stateVariable": false,
                           "storageLocation": "default",
                           "type": "contract Patient",
@@ -380,7 +380,7 @@
                             "attributes": {
                               "contractScope": null,
                               "name": "Patient",
-                              "referencedDeclaration": 691,
+                              "referencedDeclaration": 686,
                               "type": "contract Patient"
                             },
                             "id": 183,
@@ -418,7 +418,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 691,
+                              "referencedDeclaration": 686,
                               "type": "type(contract Patient)",
                               "value": "Patient"
                             },
@@ -461,7 +461,7 @@
                         "attributes": {
                           "constant": false,
                           "name": "pre",
-                          "scope": 212,
+                          "scope": 207,
                           "stateVariable": false,
                           "storageLocation": "default",
                           "type": "contract Prescription",
@@ -473,7 +473,7 @@
                             "attributes": {
                               "contractScope": null,
                               "name": "Prescription",
-                              "referencedDeclaration": 925,
+                              "referencedDeclaration": 816,
                               "type": "contract Prescription"
                             },
                             "id": 189,
@@ -511,7 +511,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 925,
+                              "referencedDeclaration": 816,
                               "type": "type(contract Prescription)",
                               "value": "Prescription"
                             },
@@ -567,7 +567,7 @@
                             "attributes": {
                               "argumentTypes": [
                                 {
-                                  "typeIdentifier": "t_contract$_Prescription_$925",
+                                  "typeIdentifier": "t_contract$_Prescription_$816",
                                   "typeString": "contract Prescription"
                                 }
                               ],
@@ -576,7 +576,7 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "member_name": "validPrescription",
-                              "referencedDeclaration": 551,
+                              "referencedDeclaration": 546,
                               "type": "function (contract Prescription) view external returns (bool)"
                             },
                             "children": [
@@ -650,7 +650,7 @@
                                       "isPure": false,
                                       "lValueRequested": false,
                                       "member_name": "deliver",
-                                      "referencedDeclaration": 821,
+                                      "referencedDeclaration": 815,
                                       "type": "function () external"
                                     },
                                     "children": [
@@ -682,99 +682,36 @@
                             "id": 203,
                             "name": "ExpressionStatement",
                             "src": "396:13:1"
-                          },
-                          {
-                            "children": [
-                              {
-                                "attributes": {
-                                  "argumentTypes": null,
-                                  "arguments": [
-                                    null
-                                  ],
-                                  "isConstant": false,
-                                  "isLValue": false,
-                                  "isPure": false,
-                                  "isStructConstructorCall": false,
-                                  "lValueRequested": false,
-                                  "names": [
-                                    null
-                                  ],
-                                  "type": "inaccessible dynamic type",
-                                  "type_conversion": false
-                                },
-                                "children": [
-                                  {
-                                    "attributes": {
-                                      "argumentTypes": [
-                                        null
-                                      ],
-                                      "isConstant": false,
-                                      "isLValue": false,
-                                      "isPure": false,
-                                      "lValueRequested": false,
-                                      "member_name": "getData",
-                                      "referencedDeclaration": 831,
-                                      "type": "function () view external returns (inaccessible dynamic type)"
-                                    },
-                                    "children": [
-                                      {
-                                        "attributes": {
-                                          "argumentTypes": null,
-                                          "overloadedDeclarations": [
-                                            null
-                                          ],
-                                          "referencedDeclaration": 190,
-                                          "type": "contract Prescription",
-                                          "value": "pre"
-                                        },
-                                        "id": 204,
-                                        "name": "Identifier",
-                                        "src": "423:3:1"
-                                      }
-                                    ],
-                                    "id": 206,
-                                    "name": "MemberAccess",
-                                    "src": "423:11:1"
-                                  }
-                                ],
-                                "id": 207,
-                                "name": "FunctionCall",
-                                "src": "423:13:1"
-                              }
-                            ],
-                            "id": 208,
-                            "name": "ExpressionStatement",
-                            "src": "423:13:1"
                           }
                         ],
-                        "id": 209,
+                        "id": 204,
                         "name": "Block",
-                        "src": "382:65:1"
+                        "src": "382:68:1"
                       }
                     ],
-                    "id": 210,
+                    "id": 205,
                     "name": "IfStatement",
-                    "src": "352:95:1"
+                    "src": "352:98:1"
                   }
                 ],
-                "id": 211,
+                "id": 206,
                 "name": "Block",
-                "src": "249:204:1"
+                "src": "249:207:1"
               }
             ],
-            "id": 212,
+            "id": 207,
             "name": "FunctionDefinition",
-            "src": "170:283:1"
+            "src": "170:286:1"
           }
         ],
-        "id": 213,
+        "id": 208,
         "name": "ContractDefinition",
-        "src": "50:405:1"
+        "src": "50:408:1"
       }
     ],
-    "id": 214,
+    "id": 209,
     "name": "SourceUnit",
-    "src": "0:456:1"
+    "src": "0:459:1"
   },
   "compiler": {
     "name": "solc",
@@ -782,5 +719,5 @@
   },
   "networks": {},
   "schemaVersion": "1.0.1",
-  "updatedAt": "2017-11-11T23:21:51.966Z"
+  "updatedAt": "2017-11-11T23:49:20.337Z"
 }
