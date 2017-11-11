@@ -51,7 +51,7 @@ contract Prescription {
     }
 
     function getData() public constant returns (string) {
-        Doctor d = Doctor(doctor);
+        // Doctor d = Doctor(doctor);
         return bytes32ToString(drugName);
     }
 

@@ -23,11 +23,11 @@ contract Patient {
         noOfHistories = 0;
     }
 
-    function getNoOfPrescriptions() returns (uint) {
+    function getNoOfPrescriptions() public view returns (uint) {
         return noOfPrescriptions;
     }
 
-    function getNoOfHistories() returns (uint) {
+    function getNoOfHistories() public view returns (uint) {
         return noOfHistories;
     }
 
@@ -37,7 +37,7 @@ contract Patient {
         noOfPrescriptions++;
     }
 
-    function getPrescription(uint i) returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
+    function getPrescription(uint i) public returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
         prescriptionAddress = prescriptions_idx[i];
         var prescription = prescriptions[prescriptionAddress];
         drugName = bytes32ToString(prescription.getDrugName());
@@ -46,7 +46,7 @@ contract Patient {
         delivered = prescription.getDelivered();
     }
 
-    function getHistoryPrescription(uint i) returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
+    function getHistoryPrescription(uint i) public returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
         prescriptionAddress = histories[i];
         var prescription = Prescription(prescriptionAddress);
         drugName = bytes32ToString(prescription.getDrugName());
@@ -55,7 +55,7 @@ contract Patient {
         delivered = prescription.getDelivered();
     }
 
-    function removePrescription(address prescription) {
+    function removePrescription(address prescription) public {
         // get the id
         uint prescriptionId = prescriptions[prescription].getId();
         noOfPrescriptions--;
@@ -76,11 +76,11 @@ contract Patient {
         PrescriptionRemoved(prescription);
     }
 
-    function validPrescription(Prescription prescription) public returns (bool) {
+    function validPrescription(Prescription prescription) public view returns (bool) {
         return existPrescription(prescription) && prescription.getDelivered() == false;
     }
 
-    function existPrescription(Prescription prescription) public returns (bool) {
+    function existPrescription(Prescription prescription) public view returns (bool) {
         Prescription data = prescriptions[prescription];
         return data == prescription;
     }
