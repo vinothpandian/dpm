@@ -6,18 +6,55 @@ contract Patient {
     bytes32 ssn;
     bytes32 insuranceId;
     bytes32 insuranceName;
+    uint noOfPrescriptions;
 
-    mapping(address => Prescription) histories;
-    mapping(address => Prescription) prescriptions;
+    mapping (address => Prescription) prescriptions;
+    mapping (uint => address) prescriptions_idx;
+    mapping (uint => address) histories;
+
+    event PrescriptionRemoved(address prescription);
 
     function Patient(bytes32 ssnParam, bytes32 insuranceIdParam, bytes32 insuranceNameParam) public {
         ssn = ssnParam;
         insuranceId = insuranceIdParam;
         insuranceName = insuranceNameParam;
+        noOfPrescriptions = 0;
+    }
+
+    function getNoOfPrescriptions() returns (uint) {
+        return noOfPrescriptions;
     }
 
     function addPrescription(Prescription prescription) public {
-        prescriptions[prescription] = prescription;
+        prescriptions_idx[noOfPrescriptions] = prescription;
+        noOfPrescriptions++;
+    }
+
+    function getPrescription(uint i) returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
+        prescriptionAddress = prescriptions_idx[i];
+        var prescription = prescriptions[prescriptionAddress];
+        drugName = bytes32ToString(prescription.getDrugName());
+        patientAddress = prescription.getPatient();
+        doctorAddress =  prescription.getDoctor();
+        delivered = prescription.getDelivered();
+    }
+
+    function removePrescription(address prescription) {
+        // get the id
+        uint prescriptionId = prescriptions[prescription].getId();
+        noOfPrescriptions--;
+
+        // get last obj
+        address lastPrescription = prescriptions_idx[noOfPrescriptions];
+
+        // move the last to the removed idx
+        prescriptions_idx[prescriptionId] = prescriptions_idx[noOfPrescriptions];
+
+        // update the last obj id
+        prescriptions[lastPrescription].setId(prescriptionId);
+        delete prescriptions[prescription];
+        delete prescriptions_idx[noOfPrescriptions];
+        PrescriptionRemoved(prescription);
     }
 
     function validPrescription(Prescription prescription) public returns (bool) {

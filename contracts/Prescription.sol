@@ -4,20 +4,43 @@ import "./Doctor.sol";
 pragma solidity ^0.4.8;
 
 contract Prescription {
+    uint id;
     address doctor;
     address patient;
     bytes32 drugName;
     bool delivered;
 
     function Prescription(address doctorP, address patientP, bytes32 drugNameP, bool deliveredP) public {
+        Patient p = Patient(patient);
         doctor = doctorP;
         patient = patientP;
         drugName = drugNameP;
         delivered = deliveredP;
-        Patient(patient).addPrescription(this);
+        id = p.getNoOfPrescriptions();
+        p.addPrescription(this);
     }
 
-    function getDelivered() public returns(bool) {
+    function getId() public constant returns(uint) {
+        return id;
+    }
+
+    function setId(uint newId) public {
+        id = newId;
+    }
+
+    function getDoctor() public constant returns(address) {
+        return doctor;
+    }
+
+    function getPatient() public constant returns(address) {
+        return patient;
+    }
+
+    function getDrugName() public constant returns(bytes32) {
+        return drugName;
+    }
+
+    function getDelivered() public constant returns(bool) {
         return delivered;
     }
 
@@ -25,7 +48,7 @@ contract Prescription {
         delivered = true;
     }
 
-    function getData() public returns (string) {
+    function getData() public constant returns (string) {
         Doctor d = Doctor(doctor);
         return bytes32ToString(drugName);
     }
