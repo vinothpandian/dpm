@@ -57,6 +57,8 @@ typings/
 # dotenv environment variables file
 .env
 
+.node-xmlhttprequest-sync-11608
+
 # output directory
 dist/
 .idea/
