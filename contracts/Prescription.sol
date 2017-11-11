@@ -11,7 +11,7 @@ contract Prescription {
     bool delivered;
 
     function Prescription(address doctorP, address patientP, bytes32 drugNameP, bool deliveredP) public {
-        Patient p = Patient(patient);
+        Patient p = Patient(patientP);
         doctor = doctorP;
         patient = patientP;
         drugName = drugNameP;
@@ -46,6 +46,8 @@ contract Prescription {
 
     function deliver() public {
         delivered = true;
+        Patient p = Patient(patient);
+        p.removePrescription(this);
     }
 
     function getData() public constant returns (string) {

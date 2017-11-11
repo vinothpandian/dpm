@@ -7,6 +7,7 @@ contract Patient {
     bytes32 insuranceId;
     bytes32 insuranceName;
     uint noOfPrescriptions;
+    uint noOfHistories;
 
     mapping (address => Prescription) prescriptions;
     mapping (uint => address) prescriptions_idx;
@@ -19,20 +20,35 @@ contract Patient {
         insuranceId = insuranceIdParam;
         insuranceName = insuranceNameParam;
         noOfPrescriptions = 0;
+        noOfHistories = 0;
     }
 
     function getNoOfPrescriptions() returns (uint) {
         return noOfPrescriptions;
     }
 
+    function getNoOfHistories() returns (uint) {
+        return noOfHistories;
+    }
+
     function addPrescription(Prescription prescription) public {
         prescriptions_idx[noOfPrescriptions] = prescription;
+        prescriptions[prescription] = prescription;
         noOfPrescriptions++;
     }
 
     function getPrescription(uint i) returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
         prescriptionAddress = prescriptions_idx[i];
         var prescription = prescriptions[prescriptionAddress];
+        drugName = bytes32ToString(prescription.getDrugName());
+        patientAddress = prescription.getPatient();
+        doctorAddress =  prescription.getDoctor();
+        delivered = prescription.getDelivered();
+    }
+
+    function getHistoryPrescription(uint i) returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
+        prescriptionAddress = histories[i];
+        var prescription = Prescription(prescriptionAddress);
         drugName = bytes32ToString(prescription.getDrugName());
         patientAddress = prescription.getPatient();
         doctorAddress =  prescription.getDoctor();
@@ -54,6 +70,9 @@ contract Patient {
         prescriptions[lastPrescription].setId(prescriptionId);
         delete prescriptions[prescription];
         delete prescriptions_idx[noOfPrescriptions];
+
+        histories[noOfHistories] = prescription;
+        noOfHistories++;
         PrescriptionRemoved(prescription);
     }
 
