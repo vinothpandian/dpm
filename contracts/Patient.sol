@@ -23,11 +23,11 @@ contract Patient {
         noOfHistories = 0;
     }
 
-    function getNoOfPrescriptions() public view returns (uint) {
+    function getNoOfPrescriptions() public returns (uint) {
         return noOfPrescriptions;
     }
 
-    function getNoOfHistories() public view returns (uint) {
+    function getNoOfHistories() public returns (uint) {
         return noOfHistories;
     }
 
@@ -37,7 +37,7 @@ contract Patient {
         noOfPrescriptions++;
     }
 
-    function getPrescription(uint i) public view returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
+    function getPrescription(uint i) public returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
         prescriptionAddress = prescriptions_idx[i];
         var prescription = prescriptions[prescriptionAddress];
         drugName = bytes32ToString(prescription.getDrugName());
@@ -46,7 +46,7 @@ contract Patient {
         delivered = prescription.getDelivered();
     }
 
-    function getHistoryPrescription(uint i) public view returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
+    function getHistoryPrescription(uint i) public returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
         prescriptionAddress = histories[i];
         var prescription = Prescription(prescriptionAddress);
         drugName = bytes32ToString(prescription.getDrugName());
@@ -76,22 +76,22 @@ contract Patient {
         PrescriptionRemoved(prescription);
     }
 
-    function validPrescription(Prescription prescription) public view returns (bool) {
+    function validPrescription(Prescription prescription) public returns (bool) {
         return existPrescription(prescription) && prescription.getDelivered() == false;
     }
 
-    function existPrescription(Prescription prescription) public view returns (bool) {
+    function existPrescription(Prescription prescription) public returns (bool) {
         var data = prescriptions[prescription];
         return data == prescription;
     }
 
-    function getData() public view returns (string ssnRet, string insuranceIdRet, string insuranceNameRet) {
+    function getData() public returns (string ssnRet, string insuranceIdRet, string insuranceNameRet) {
         ssnRet = bytes32ToString(ssn);
         insuranceIdRet = bytes32ToString(insuranceId);
         insuranceNameRet = bytes32ToString(insuranceName);
     }
 
-    function bytes32ToString(bytes32 x) private pure returns (string) {
+    function bytes32ToString(bytes32 x) private returns (string) {
         bytes memory bytesString = new bytes(32);
         uint charCount = 0;
         for (uint j = 0; j < 32; j++) {
