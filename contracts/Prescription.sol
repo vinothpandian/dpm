@@ -16,7 +16,7 @@ contract Prescription {
         delivered = deliveredP;
     }
 
-    function getId() public constant returns(uint) {
+    function getId() public returns(uint) {
         return id;
     }
 
@@ -24,19 +24,19 @@ contract Prescription {
         id = newId;
     }
 
-    function getDoctor() public constant returns(address) {
+    function getDoctor() public returns(address) {
         return doctor;
     }
 
-    function getPatient() public constant returns(address) {
+    function getPatient() public returns(address) {
         return patient;
     }
 
-    function getDrugName() public constant returns(bytes32) {
+    function getDrugName() public returns(bytes32) {
         return drugName;
     }
 
-    function getDelivered() public constant returns(bool) {
+    function getDelivered() public returns(bool) {
         return delivered;
     }
 
@@ -45,7 +45,7 @@ contract Prescription {
         Patient(patient).removePrescription(this);
     }
 
-    function getData() public constant returns (string) {
+    function getData() public returns (string) {
         return bytes32ToString(drugName);
       }
 
