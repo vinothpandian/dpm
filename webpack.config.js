@@ -28,7 +28,6 @@ module.exports = {
     port: 8080,
     disableHostCheck: true,
     historyApiFallback: true,
-    hot: true
   },
 
   plugins: [

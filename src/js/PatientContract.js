@@ -47,7 +47,6 @@ var PatientManager = {
       self.patientAddress = instance.address;
     })
 
-    console.log(self.patientAddress)
   },
 
   addPrescription: function(patientAddress, drugName, quantity) {
@@ -132,8 +131,6 @@ var PatientManager = {
     Patient.deployed().then(function(instance) {
       return instance.getDetails.call({from: self.address});
     }).then(function(result) {
-
-      console.log("result")
 
       $("#ptssn").text(result[0])
       $("#insid").text(result[1])

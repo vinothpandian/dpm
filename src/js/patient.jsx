@@ -52,10 +52,7 @@ class Patient extends Component {
     let drugName = ""
     let qtyVal = ""
 
-    var url = window.location.href
-    url = url.split("/");
-    console.log(url)
-    console.log(url[1]);
+
 
     PatientContract.start()
 
@@ -69,8 +66,6 @@ class Patient extends Component {
       qtyVal += qty
     }
 
-    console.log(this.props)
-
     PatientContract.addPrescription(PatientContract.patientAddress, drugName, qtyVal)
 
 
@@ -82,7 +77,13 @@ class Patient extends Component {
 
     PatientContract.start()
 
+    var url = window.location.href
+    url = url.split("/");
+    PatientContract.patientAddress = url[4]
+
     PatientContract.getDetails()
+
+
 
     for (var i = 0; i < this.state.count; i++) {
       forms.push(
@@ -167,9 +168,9 @@ class Patient extends Component {
                   <button className="btn btn-success" onClick={this.prescribe}>Prescribe</button>
                 </div>
               </div>
-              <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
+              <div id="myModal" className="modal fade bd-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-lg">
+                  <div className="modal-content">
                     <canvas id="qr"></canvas>
                   </div>
                 </div>
