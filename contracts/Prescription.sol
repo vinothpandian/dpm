@@ -47,7 +47,7 @@ contract Prescription {
 
     function getData() public returns (string) {
         return bytes32ToString(drugName);
-      }
+    }
 
     function bytes32ToString(bytes32 x) private returns (string) {
         bytes memory bytesString = new bytes(32);
