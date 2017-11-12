@@ -1,3 +1,5 @@
+import DrugStoreContract from '../src/js/DrugStoreContract.js'
+
 var appRouter = function(app) {
 
   app.get("/", function(req, res) {
@@ -24,10 +26,11 @@ var appRouter = function(app) {
   });
 
   app.post("/patient", function(req, res) {
-    if(!req.body.patient_addr || !req.body.tablets || !req.body.qty) {
+    if (!req.body.patient_addr || !req.body.prescription_addr) {
       return res.send({"status": "error", "message": "missing a parameter"});
     } else {
-      return res.send(req.body);
+      DrugStoreContract.start()
+      DrugStoreContract.verify(req.body.patient_addr, req.body.prescription_addr)
     }
   });
 }
