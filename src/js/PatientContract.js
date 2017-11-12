@@ -148,9 +148,9 @@ var PatientManager = {
       var drugs = result[0].split(',');
       var qty = result[1].split(',');
 
-      $("#medicines").text(drugs)
-      $('#qty').text(qty)
-
+      for (i = 0; i < drugs.length; i++) {
+        $('#tbl tbody').append("<tr><td>" + drugs[i] + "</td><td>" + qty[i] + "</td></tr>")
+      }
     }).catch(function(e) {
       console.log(e);
       alertUser("danger","<strong>Error writing prescription!!</strong> Check logs!")

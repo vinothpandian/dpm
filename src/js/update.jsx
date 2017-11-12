@@ -23,10 +23,6 @@ class Update extends Component {
 
     PatientContract.start();
     PatientContract.getPrescriptionData(id);
-
-    DB.tablets = $('#medicines').text()
-    DB.qty = $('#qty').text()
-
   }
 
   getUrlVars()
@@ -45,12 +41,16 @@ class Update extends Component {
   render () {
 
     return (
-      <div>
-        <div id="address"></div>
-        <div id="medicines"></div>
-        <div id="qty"></div>
-      </div>
-
+      <table class="table" id="tbl">
+        <thead>
+          <tr>
+            <th>Medicine</th>
+            <th>Qty</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
     )
   }
 }
