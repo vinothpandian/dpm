@@ -10,13 +10,10 @@ contract Prescription {
     bool delivered;
 
     function Prescription(address doctorP, address patientP, bytes32 drugNameP, bool deliveredP) public {
-        var p = Patient(patientP);
         doctor = doctorP;
         patient = patientP;
         drugName = drugNameP;
         delivered = deliveredP;
-        id = p.getNoOfPrescriptions();
-        p.addPrescription(this);
     }
 
     function getId() public constant returns(uint) {
@@ -45,8 +42,7 @@ contract Prescription {
 
     function deliver() public {
         delivered = true;
-        var p = Patient(patient);
-        p.removePrescription(this);
+        Patient(patient).removePrescription(this);
     }
 
     function getData() public constant returns (string) {

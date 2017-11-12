@@ -13,6 +13,9 @@ contract Doctor {
 
     function writePrescription(address patient, bytes32 drugName) public returns (address prescriptionAddr, address doctorAddr, address patientAddr) {
         var newPrescription = new Prescription(this, patient, drugName, false);
+        var p = Patient(patient);
+        newPrescription.setId(p.getNoOfPrescriptions());
+        p.addPrescription(newPrescription);
         prescriptionAddr = newPrescription;
         doctorAddr = this;
         patientAddr = patient;
