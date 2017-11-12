@@ -31,9 +31,9 @@ contract Patient {
         return noOfHistories;
     }
 
-    function addPrescription(Prescription prescription) public {
+    function addPrescription(address prescription) public {
         prescriptions_idx[noOfPrescriptions] = prescription;
-        prescriptions[prescription] = prescription;
+        prescriptions[prescription] = Prescription(prescription);
         noOfPrescriptions++;
     }
 
@@ -81,7 +81,7 @@ contract Patient {
     }
 
     function existPrescription(Prescription prescription) public view returns (bool) {
-        Prescription data = prescriptions[prescription];
+        var data = prescriptions[prescription];
         return data == prescription;
     }
 

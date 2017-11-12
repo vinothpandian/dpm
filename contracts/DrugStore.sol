@@ -10,11 +10,11 @@ contract DrugStore {
     }
 
     function verify(address patient, address prescription) public returns (string) {
-        Patient p = Patient(patient);
-        Prescription pre = Prescription(prescription);
+        var p = Patient(patient);
+        var pre = Prescription(prescription);
         if (p.validPrescription(pre)) {
             pre.deliver();
-            // pre.getData();
+            pre.getData();
         }
     }
 }
