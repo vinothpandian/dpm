@@ -1,17 +1,27 @@
-import "./Prescription.sol";
-
 pragma solidity ^0.4.8;
 
 contract Patient {
     bytes32 ssn;
     bytes32 insuranceId;
     bytes32 insuranceName;
+
+    event PrescriptionDelivered();
+    event PrescriptionCreated();
+
+    struct Prescription {
+        address doctorAddress;
+        bytes32 drugDetails;
+        bytes32 drugQty;
+        bool delivered;
+
+    }
+
     uint noOfPrescriptions;
     uint noOfHistories;
 
-    mapping (address => Prescription) prescriptions;
-    mapping (uint => address) prescriptions_idx;
-    mapping (uint => address) histories;
+    mapping (uint => Prescription) prescriptions;
+    mapping (uint => address) prescriptions_index;
+    Prescription[] histories;
 
     event PrescriptionRemoved(address prescription);
 
@@ -23,69 +33,48 @@ contract Patient {
         noOfHistories = 0;
     }
 
-    function getNoOfPrescriptions() public returns (uint) {
+    function addPrescription(address doctorAddress, bytes32 drugDetails, bytes32 drugQty) public returns (uint) {
+        var prescription = Prescription(doctorAddress, drugDetails, drugQty, false);
+        prescriptions[noOfPrescriptions] = prescription;
+        noOfPrescriptions++;
+        return noOfPrescriptions-1;
+        PrescriptionCreated();
+    }
+
+    function isPrescriptionDelivered(uint id) private returns (bool){
+        return prescriptions[id].delivered;
+    }
+
+    function getPrescriptionData(uint id) public returns (string drugs, string qty) {
+        if(!isPrescriptionDelivered(id)) {
+            drugs = bytes32ToString(prescriptions[id].drugDetails);
+            qty = bytes32ToString(prescriptions[id].drugQty);
+        }
+    }
+
+    function getPrescriptionHistoryCount() public constant returns(uint) {
+        return histories.length;
+    }
+
+    function getPrescriptionHistory(uint id) public constant returns (string drugs, string qty) {
+        drugs = bytes32ToString(histories[id].drugDetails);
+        qty = bytes32ToString(histories[id].drugQty);
+    }
+
+    function prescriptionDelivered(uint id) public returns (bool) {
+        histories.push(prescriptions[id]);
+        noOfPrescriptions--;
+        prescriptions[id] = prescriptions[noOfPrescriptions];
+        delete prescriptions[noOfPrescriptions];
+        PrescriptionDelivered();
+        return true;
+    }
+
+    function getNoOfPrescriptions() public constant returns (uint) {
         return noOfPrescriptions;
     }
 
-    function getNoOfHistories() public returns (uint) {
-        return noOfHistories;
-    }
-
-    function addPrescription(address prescription) public {
-        prescriptions_idx[noOfPrescriptions] = prescription;
-        prescriptions[prescription] = Prescription(prescription);
-        noOfPrescriptions++;
-    }
-
-    function getPrescription(uint i) public returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
-        prescriptionAddress = prescriptions_idx[i];
-        var prescription = prescriptions[prescriptionAddress];
-        drugName = bytes32ToString(prescription.getDrugName());
-        patientAddress = prescription.getPatient();
-        doctorAddress =  prescription.getDoctor();
-        delivered = prescription.getDelivered();
-    }
-
-    function getHistoryPrescription(uint i) public returns (address prescriptionAddress, string drugName, address patientAddress, address doctorAddress, bool delivered) {
-        prescriptionAddress = histories[i];
-        var prescription = Prescription(prescriptionAddress);
-        drugName = bytes32ToString(prescription.getDrugName());
-        patientAddress = prescription.getPatient();
-        doctorAddress =  prescription.getDoctor();
-        delivered = prescription.getDelivered();
-    }
-
-    function removePrescription(address prescription) public {
-        // get the id
-        uint prescriptionId = prescriptions[prescription].getId();
-        noOfPrescriptions--;
-
-        // get last obj
-        address lastPrescription = prescriptions_idx[noOfPrescriptions];
-
-        // move the last to the removed idx
-        prescriptions_idx[prescriptionId] = prescriptions_idx[noOfPrescriptions];
-
-        // update the last obj id
-        prescriptions[lastPrescription].setId(prescriptionId);
-        delete prescriptions[prescription];
-        delete prescriptions_idx[noOfPrescriptions];
-
-        histories[noOfHistories] = prescription;
-        noOfHistories++;
-        PrescriptionRemoved(prescription);
-    }
-
-    function validPrescription(Prescription prescription) public returns (bool) {
-        return existPrescription(prescription) && prescription.getDelivered() == false;
-    }
-
-    function existPrescription(Prescription prescription) public returns (bool) {
-        var data = prescriptions[prescription];
-        return data == prescription;
-    }
-
-    function getData() public returns (string ssnRet, string insuranceIdRet, string insuranceNameRet) {
+    function getDetails() public constant returns (string ssnRet, string insuranceIdRet, string insuranceNameRet) {
         ssnRet = bytes32ToString(ssn);
         insuranceIdRet = bytes32ToString(insuranceId);
         insuranceNameRet = bytes32ToString(insuranceName);

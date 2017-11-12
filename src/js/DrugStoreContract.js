@@ -39,13 +39,13 @@ var DrugStoreManager = {
     return true
   },
 
-  verify: function(patientAddress, prescriptionAddress) {
+  verify: function(patientAddress, prescriptionID) {
     var self = this;
 
     alertUser("warning","<div class='loader'></div><strong class='ml-4'>Initiating Transaction!</strong> Please wait.... ")
 
     DrugStore.deployed().then(function(instance) {
-      return instance.verify(patientAddress, prescriptionAddress, {from: self.address});
+      return instance.verify(patientAddress, prescriptionID, {from: self.address});
     }).then(function(result) {
 
       var success = false
@@ -53,6 +53,36 @@ var DrugStoreManager = {
       for (var i = 0; i < result.logs.length; i++) {
         var log = result.logs[i];
         if (log.event == "PrescriptionVerified") {
+          alertUser("success","<strong>Prescription was not tampered!!</strong>")
+          success = true
+          break;
+        }
+      }
+
+      if (!success) {
+        alertUser("danger","<strong>Prescription not verified!!</strong> Possible error: Tampered prescription")
+      }
+
+    }).catch(function(e) {
+      console.log(e);
+      alertUser("danger","<strong>Error verifying prescription!!</strong> Check logs!")
+    });
+  },
+
+  delivered: function(patientAddress, prescriptionID) {
+    var self = this;
+
+    alertUser("warning","<div class='loader'></div><strong class='ml-4'>Initiating Transaction!</strong> Please wait.... ")
+
+    DrugStore.deployed().then(function(instance) {
+      return instance.delivered(patientAddress, prescriptionID, {from: self.address});
+    }).then(function(result) {
+
+      var success = false
+
+      for (var i = 0; i < result.logs.length; i++) {
+        var log = result.logs[i];
+        if (log.event == "PrescriptionDelivered") {
           alertUser("success","<strong>Prescription was not tampered!!</strong>")
           success = true
           break;

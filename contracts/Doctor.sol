@@ -1,5 +1,4 @@
 import "./Patient.sol";
-import "./Prescription.sol";
 
 pragma solidity ^0.4.8;
 
@@ -11,18 +10,12 @@ contract Doctor {
         name = nameParam;
     }
 
-    function writePrescription(address patient, bytes32 drugName) public returns (address prescriptionAddr, address doctorAddr, address patientAddr) {
-        var newPrescription = new Prescription(this, patient, drugName, false);
-        var p = Patient(patient);
-        newPrescription.setId(p.getNoOfPrescriptions());
-        p.addPrescription(newPrescription);
-        prescriptionAddr = newPrescription;
-        doctorAddr = this;
-        patientAddr = patient;
+    function writePrescription(address patient, bytes32 drugDetails) public returns (uint id) {
+        id = Patient(patient).addPrescription(this, drugDetails);
         PrescriptionCreated();
     }
 
-    function getData() public returns (string) {
+    function getData() public constant returns (string) {
         return bytes32ToString(name);
     }
 

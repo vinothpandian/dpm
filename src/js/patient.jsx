@@ -46,15 +46,22 @@ class Patient extends Component {
   prescribe(e) {
     e.preventDefault()
 
-    let drugName = "obat"
+    let drugName = ""
+    let qtyVal = ""
 
-    // for (var i = 0; i < this.state.count; i++) {
-    //   let val = $("#tab"+i).val() +","
-    //   drugName +=  val
-    // }
+    PatientContract.start()
+    PatientContract.getAddress()
 
-    DoctorContract.start()
-    DoctorContract.writePrescription(PatientContract.address, drugName, 10)
+    PatientContract.getNoOfPrescriptions();
+
+    for (var i = 0; i < this.state.count; i++) {
+      let val = $("#tab"+i).val() +","
+      let qty = $("#qty"+i).val() + ","
+      drugName +=  val
+      qtyVal += qty
+    }
+
+    PatientContract.addPrescription(PatientContract.patientAddress, drugName, qtyVal)
   }
 
   render () {
@@ -63,7 +70,7 @@ class Patient extends Component {
 
     PatientContract.start()
 
-    PatientContract.getData()
+    PatientContract.getDetails()
 
     for (var i = 0; i < this.state.count; i++) {
       forms.push(

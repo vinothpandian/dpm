@@ -11,7 +11,7 @@ function alertUser(alertLevel, alertText) {
 var PatientManager = {
 
   address: null,
-  doctorAddress: null,
+  patientAddress: null,
 
   start: function() {
     var self = this;
@@ -39,31 +39,26 @@ var PatientManager = {
     return true
   },
 
-  writePrescription: function(patientAddress, drugName, quantity) {
+  getAddress: function () {
+    var self = this;
+
+    Patient.deployed().then(function(instance) {
+      self.patientAddress = instance.address;
+    })
+
+    console.log(self.patientAddress)
+  },
+
+  addPrescription: function(patientAddress, drugName, quantity) {
     var self = this;
 
     alertUser("warning","<div class='loader'></div><strong class='ml-4'>Initiating Transaction!</strong> Please wait.... ")
 
     Patient.deployed().then(function(instance) {
-      return instance.writePrescription(patientAddress, drugName, {from: self.address});
+      return instance.addPrescription(patientAddress, drugName, {from: self.address});
     }).then(function(result) {
 
-      var success = false
-
-
-
-      for (var i = 0; i < result.logs.length; i++) {
-        var log = result.logs[i];
-        if (log.event == "PrescriptionCreated") {
-          alertUser("success","<strong>Prescription written!!</strong>")
-          success = true
-          break;
-        }
-      }
-
-      if (!success) {
-        alertUser("danger","<strong>Error writing prescription!!</strong> Possible error: Patient ran out of ether")
-      }
+      alertUser("success","<strong>Prescription written!!</strong>")
 
     }).catch(function(e) {
       console.log(e);
@@ -81,7 +76,7 @@ var PatientManager = {
       return instance.getNoOfPrescriptions.call({from: self.address});
     }).then(function(result) {
 
-      console.log(result)
+      console.log(result.valueOf())
 
     }).catch(function(e) {
       console.log(e);
@@ -89,13 +84,13 @@ var PatientManager = {
     });
   },
 
-  getNoOfHistories: function() {
+  getPrescriptionHistoryCount: function() {
     var self = this;
 
     alertUser("warning","<div class='loader'></div><strong class='ml-4'>Initiating Transaction!</strong> Please wait.... ")
 
     Patient.deployed().then(function(instance) {
-      return instance.getNoOfHistories.call({from: self.address});
+      return instance.getPrescriptionHistoryCount.call({from: self.address});
     }).then(function(result) {
 
       console.log(result)
@@ -106,14 +101,16 @@ var PatientManager = {
     });
   },
 
-  getData: function() {
+  getDetails: function() {
     var self = this;
 
     alertUser("warning","<div class='loader'></div><strong class='ml-4'>Initiating Transaction!</strong> Please wait.... ")
 
     Patient.deployed().then(function(instance) {
-      return instance.getData.call({from: self.address});
+      return instance.getDetails.call({from: self.address});
     }).then(function(result) {
+
+      console.log("result")
 
       $("#ptssn").text(result[0])
       $("#insid").text(result[1])
@@ -125,13 +122,13 @@ var PatientManager = {
     });
   },
 
-  getPrescription: function(i) {
+  getPrescriptionData: function(i) {
     var self = this;
 
     alertUser("warning","<div class='loader'></div><strong class='ml-4'>Initiating Transaction!</strong> Please wait.... ")
 
     Patient.deployed().then(function(instance) {
-      return instance.getPrescription.call(i, {from: self.address});
+      return instance.getPrescriptionData.call(i, {from: self.address});
     }).then(function(result) {
 
       console.log(result)
@@ -142,13 +139,13 @@ var PatientManager = {
     });
   },
 
-  getHistoryPrescription: function(i) {
+  getPrescriptionHistory: function(i) {
     var self = this;
 
     alertUser("warning","<div class='loader'></div><strong class='ml-4'>Initiating Transaction!</strong> Please wait.... ")
 
     Patient.deployed().then(function(instance) {
-      return instance.getHistoryPrescription.call(i, {from: self.address});
+      return instance.getPrescriptionHistory.call(i, {from: self.address});
     }).then(function(result) {
 
       console.log(result)
@@ -159,31 +156,29 @@ var PatientManager = {
     });
   },
 
-  removePrescription: function(prescriptionAddress) {
+  prescriptionDelivered: function(prescriptionID) {
     var self = this;
 
     alertUser("warning","<div class='loader'></div><strong class='ml-4'>Initiating Transaction!</strong> Please wait.... ")
 
     Patient.deployed().then(function(instance) {
-      return instance.removePrescription(prescriptionAddress, {from: self.address});
+      return instance.prescriptionDelivered(prescriptionID, {from: self.address});
     }).then(function(result) {
 
-      console.log(result)
+      var success = false
 
-      // var success = false
-      //
-      // for (var i = 0; i < result.logs.length; i++) {
-      //   var log = result.logs[i];
-      //   if (log.event == "PrescriptionCreated") {
-      //     alertUser("success","<strong>Prescription written!!</strong>")
-      //     success = true
-      //     break;
-      //   }
-      // }
-      //
-      // if (!success) {
-      //   alertUser("danger","<strong>Error writing prescription!!</strong> Possible error: Patient ran out of ether")
-      // }
+      for (var i = 0; i < result.logs.length; i++) {
+        var log = result.logs[i];
+        if (log.event == "PrescriptionDelivered") {
+          alertUser("success","<strong>Prescription written!!</strong>")
+          success = true
+          break;
+        }
+      }
+
+      if (!success) {
+        alertUser("danger","<strong>Error writing prescription!!</strong> Possible error: Patient ran out of ether")
+      }
 
     }).catch(function(e) {
       console.log(e);
