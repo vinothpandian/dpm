@@ -52,6 +52,11 @@ class Patient extends Component {
     let drugName = ""
     let qtyVal = ""
 
+    var url = window.location.href
+    url = url.split("/");
+    console.log(url)
+    console.log(url[1]);
+
     PatientContract.start()
 
 
@@ -63,6 +68,8 @@ class Patient extends Component {
       drugName +=  val
       qtyVal += qty
     }
+
+    console.log(this.props)
 
     PatientContract.addPrescription(PatientContract.patientAddress, drugName, qtyVal)
 
@@ -163,7 +170,7 @@ class Patient extends Component {
               <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
-                    <canvas id="qr" width="300" height="300"></canvas>
+                    <canvas id="qr"></canvas>
                   </div>
                 </div>
               </div>

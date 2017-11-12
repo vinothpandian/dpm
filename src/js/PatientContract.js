@@ -57,22 +57,32 @@ var PatientManager = {
 
     Patient.deployed().then(function(instance) {
       return instance.addPrescription(patientAddress, drugName, quantity, {from: self.address});
-    }).then(function(result, ret) {
+    }).then(function(result) {
 
-      console.log(ret)
+      this.getNoOfPrescriptions()
 
-      for (var i = 0; i < result.logs.length; i++) {
-        var log = result.logs[i];
-        if (log.event == "PrescriptionDelivered") {
+      const QRious = require('qrious');
 
-          alertUser("success","<strong>Prescription written!!</strong>")
-          break;
-        }
-      }
+      const canvas = document.querySelector('canvas');
+
+      const qr = new QRious({
+        element: canvas,
+        value: localStorage.getItem("PrescriptionID")
+      });
+
+      qr.backgroundAlpha = 0.8;
+      qr.foregroundAlpha = 0.8;
+      qr.level = 'H';
+      qr.padding = 25;
+      qr.size = 600;
+
+      qr === canvas.qrious;
+
+      $('#myModal').modal('show')
 
       alertUser("success","<strong>Prescription written!!</strong>")
 
-    }).catch(function(e) {
+    }.bind(this)).catch(function(e) {
       console.log(e);
       alertUser("danger","<strong>Error writing prescription!!</strong> Check logs!")
     });
@@ -89,6 +99,7 @@ var PatientManager = {
     }).then(function(result) {
 
       console.log(result.valueOf())
+      localStorage.setItem("PrescriptionID", result.valueOf())
 
     }).catch(function(e) {
       console.log(e);
@@ -148,8 +159,9 @@ var PatientManager = {
       var drugs = result[0].split(',');
       var qty = result[1].split(',');
 
-      $("#medicines").text(drugs)
-      $('#qty').text(qty)
+         for (i = 0; i < drugs.length; i++) {
+            $('#tbl tbody').append("<tr><td>" + drugs[i] + "</td><td>" + qty[i] + "</td></tr>")
+           }
 
     }).catch(function(e) {
       console.log(e);

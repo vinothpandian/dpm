@@ -21,6 +21,14 @@ module.exports = {
   output: {
     path: paths.DIST,
     filename: '[name].bundle.js'
+  }, devServer: {
+    inline: true,
+    contentBase: path.join(__dirname, 'dist'),
+    host: '0.0.0.0',
+    port: 8080,
+    disableHostCheck: true,
+    historyApiFallback: true,
+    hot: true
   },
 
   plugins: [
