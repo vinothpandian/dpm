@@ -20,8 +20,7 @@ contract Patient {
     uint noOfHistories;
 
     mapping (uint => Prescription) prescriptions;
-    mapping (uint => address) prescriptions_index;
-    Prescription[] histories;
+    mapping (uint => Prescription) histories;
 
     event PrescriptionRemoved(address prescription);
 
@@ -38,6 +37,8 @@ contract Patient {
         prescriptions[noOfPrescriptions] = prescription;
         noOfPrescriptions++;
         return noOfPrescriptions-1;
+        histories[noOfHistories] = prescription;
+        noOfHistories++;
         PrescriptionCreated();
     }
 
@@ -52,8 +53,8 @@ contract Patient {
         }
     }
 
-    function getPrescriptionHistoryCount() public constant returns(uint) {
-        return histories.length;
+    function getPrescriptionHistoryCount() public constant returns(uint count) {
+        return noOfHistories;
     }
 
     function getPrescriptionHistory(uint id) public constant returns (string drugs, string qty) {
@@ -62,7 +63,6 @@ contract Patient {
     }
 
     function prescriptionDelivered(uint id) public returns (bool) {
-        histories.push(prescriptions[id]);
         noOfPrescriptions--;
         prescriptions[id] = prescriptions[noOfPrescriptions];
         delete prescriptions[noOfPrescriptions];

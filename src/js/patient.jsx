@@ -5,9 +5,12 @@ import plusButton from "../assets/plus.svg"
 import minusButton from "../assets/negative.svg"
 
 import PatientContract from "./PatientContract"
-import * as DoctorContract from './DoctorContract'
 
 class Patient extends Component {
+
+  componentDidUpdate (prevProps, prevState, prevContext) {
+    $("#alertBox").removeClass("show");
+  }
 
   constructor(props) {
     super(props)
@@ -50,9 +53,9 @@ class Patient extends Component {
     let qtyVal = ""
 
     PatientContract.start()
-    PatientContract.getAddress()
 
-    PatientContract.getNoOfPrescriptions();
+
+    PatientContract.getPrescriptionHistoryCount();
 
     for (var i = 0; i < this.state.count; i++) {
       let val = $("#tab"+i).val() +","

@@ -31,6 +31,7 @@ var PatientManager = {
     });
 
     this.address = window.web3.eth.coinbase
+    this.getAddress()
 
     Patient.deployed().then((instance) => {
       $('#addressButton').html('<button type="button" class="btn btn-outline-warning" data-clipboard-text="'+ instance.address + '"><i class="fa fa-key" aria-hidden="true"></i></button>')
@@ -55,7 +56,7 @@ var PatientManager = {
     alertUser("warning","<div class='loader'></div><strong class='ml-4'>Initiating Transaction!</strong> Please wait.... ")
 
     Patient.deployed().then(function(instance) {
-      return instance.addPrescription(patientAddress, drugName, {from: self.address});
+      return instance.addPrescription(patientAddress, drugName, quantity, {from: self.address});
     }).then(function(result) {
 
       alertUser("success","<strong>Prescription written!!</strong>")
@@ -93,7 +94,7 @@ var PatientManager = {
       return instance.getPrescriptionHistoryCount.call({from: self.address});
     }).then(function(result) {
 
-      console.log(result)
+      console.log(result.valueOf())
 
     }).catch(function(e) {
       console.log(e);
