@@ -1,3 +1,4 @@
+var patientMock = require("../db")
 
 var appRouter = function(app) {
 
@@ -6,13 +7,8 @@ var appRouter = function(app) {
   });
 
   app.get("/patient", function(req, res) {
-    var patientMock = {
-      "patient_addr": "nraboy",
-      "tablets": ["t1", "t2", "t3"],
-      "qty": [12, 13, 14]
-    }
 
-
+    console.log(patientMock)
 
     if(!req.query.patient_addr) {
       return res.send({"status": "error", "message": "missing patient_addr"});

@@ -57,7 +57,18 @@ var PatientManager = {
 
     Patient.deployed().then(function(instance) {
       return instance.addPrescription(patientAddress, drugName, quantity, {from: self.address});
-    }).then(function(result) {
+    }).then(function(result, ret) {
+
+      console.log(ret)
+
+      for (var i = 0; i < result.logs.length; i++) {
+        var log = result.logs[i];
+        if (log.event == "PrescriptionDelivered") {
+
+          alertUser("success","<strong>Prescription written!!</strong>")
+          break;
+        }
+      }
 
       alertUser("success","<strong>Prescription written!!</strong>")
 
@@ -133,6 +144,12 @@ var PatientManager = {
     }).then(function(result) {
 
       console.log(result)
+
+      var drugs = result[0].split(',');
+      var qty = result[1].split(',');
+
+      $("#medicines").text(drugs)
+      $('#qty').text(qty)
 
     }).catch(function(e) {
       console.log(e);

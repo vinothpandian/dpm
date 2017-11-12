@@ -6,7 +6,7 @@ contract Patient {
     bytes32 insuranceName;
 
     event PrescriptionDelivered();
-    event PrescriptionCreated();
+    event PrescriptionCreated(uint value);
 
     struct Prescription {
         address doctorAddress;
@@ -36,10 +36,10 @@ contract Patient {
         var prescription = Prescription(doctorAddress, drugDetails, drugQty, false);
         prescriptions[noOfPrescriptions] = prescription;
         noOfPrescriptions++;
-        return noOfPrescriptions-1;
         histories[noOfHistories] = prescription;
         noOfHistories++;
-        PrescriptionCreated();
+        PrescriptionCreated(noOfPrescriptions);
+        return noOfPrescriptions;
     }
 
     function isPrescriptionDelivered(uint id) private returns (bool){

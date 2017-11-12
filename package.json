@@ -48,6 +48,7 @@
     "instascan": "^1.0.0",
     "jquery": "^3.2.1",
     "popper.js": "^1.12.7",
+    "qrious": "^4.0.2",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
     "react-router-dom": "^4.2.2"

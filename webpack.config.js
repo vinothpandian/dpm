@@ -4,6 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 
+
 const paths = {
   DIST: path.resolve(__dirname, 'dist'),
   SRC: path.resolve(__dirname, 'src'),
@@ -13,7 +14,8 @@ const paths = {
 module.exports = {
 
   entry: {
-    app: path.join(paths.JS, 'app.jsx')
+    app: path.join(paths.JS, 'app.jsx'),
+    update: path.join(paths.JS, 'update.jsx')
   },
 
   output: {
@@ -27,8 +29,8 @@ module.exports = {
       template: path.join(paths.SRC, 'index.html')
     }),
     new HtmlWebpackPlugin({
-      template: path.join(paths.SRC, 'index.html'),
-      filename: "mainMenu.html"
+      template: path.join(paths.SRC, 'update.html'),
+      filename: "./update.html"
     }),
     new ExtractTextPlugin('style.bundle.css'),
     new webpack.ProvidePlugin({

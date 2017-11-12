@@ -65,6 +65,8 @@ class Patient extends Component {
     }
 
     PatientContract.addPrescription(PatientContract.patientAddress, drugName, qtyVal)
+
+
   }
 
   render () {
@@ -137,9 +139,6 @@ class Patient extends Component {
               <li className="nav-item">
                 <a className="nav-link active" href="#">Prescription</a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">History</a>
-              </li>
             </ul>
 
             <div className="tab-content">
@@ -160,9 +159,14 @@ class Patient extends Component {
                   </table>
                   <button className="btn btn-success" onClick={this.prescribe}>Prescribe</button>
                 </div>
-
               </div>
-
+              <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <canvas id="qr" width="300" height="300"></canvas>
+                  </div>
+                </div>
+              </div>
 
               <div role="tabpanel" className="tab-pane" id="prescription-history"></div>
             </div>
