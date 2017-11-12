@@ -4,27 +4,27 @@ var appRouter = function(app) {
     res.send("Hello World");
   });
 
-  app.get("/account", function(req, res) {
-    var accountMock = {
-      "username": "nraboy",
-      "password": "1234",
-      "twitter": "@nraboy"
+  app.get("/patient", function(req, res) {
+    var patientMock = {
+      "patient_addr": "nraboy",
+      "tablets": ["t1", "t2", "t3"],
+      "qty": [12, 13, 14]
     }
 
 
 
-    if(!req.query.username) {
-      return res.send({"status": "error", "message": "missing username"});
-    } else if(req.query.username != accountMock.username) {
-      console.log(req.query.username)
-      return res.send({"status": "error", "message": "wrong username"});
+    if(!req.query.patient_addr) {
+      return res.send({"status": "error", "message": "missing patient_addr"});
+    } else if(req.query.patient_addr != patientMock.patient_addr) {
+      console.log(req.query.patient_addr)
+      return res.send({"status": "error", "message": "wrong patient_addr"});
     } else {
-      return res.send(accountMock);
+      return res.send(patientMock);
     }
   });
 
-  app.post("/account", function(req, res) {
-    if(!req.body.username || !req.body.password || !req.body.twitter) {
+  app.post("/patient", function(req, res) {
+    if(!req.body.patient_addr || !req.body.tablets || !req.body.qty) {
       return res.send({"status": "error", "message": "missing a parameter"});
     } else {
       return res.send(req.body);

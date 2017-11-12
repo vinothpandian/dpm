@@ -43,6 +43,8 @@ class Patient extends Component {
 
     let forms= []
 
+
+
     for (var i = 0; i < this.state.count; i++) {
       forms.push(
         <tr key={"keyCpt"+i} id={"cpt"+i} className='entry'>

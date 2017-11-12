@@ -5,7 +5,7 @@ var Patient = artifacts.require("./Patient.sol");
 
 module.exports = function(deployer) {
   deployer.deploy(DrugStore);
-  deployer.deploy(Doctor);
+  deployer.deploy(Doctor, "ssn", "insid", "insname");
   deployer.deploy(Patient);
   deployer.deploy(Prescription);
 };
