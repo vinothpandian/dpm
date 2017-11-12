@@ -15,16 +15,32 @@ import doctorLogo from '../assets/doctor.svg'
 
 class App extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      link : ""
+    };
+
+    this.text =""
+
+  }
+
   componentDidMount () {
+
+    var self = this;
 
 
     const Instascan = require('instascan');
 
-    let scanner = new Instascan.Scanner({
-      video: document.getElementById('preview') });
+    let scanner = new Instascan.Scanner({video: document.getElementById('preview') });
+
     scanner.addListener('scan', function (content) {
-      $("")
-    });
+      this.setState({
+        link: <NavLink className="btn btn-success mt-3 btn-block" to={"/patient/"+content}>Confirm</NavLink>
+      })
+    }.bind(this));
+
     Instascan.Camera.getCameras().then(function (cameras) {
       if (cameras.length > 0) {
         scanner.start(cameras[0]);
@@ -35,7 +51,8 @@ class App extends Component {
       console.error(e);
     })
 
-    print
+    console.log(self.text)
+
 
   }
 
@@ -64,7 +81,9 @@ class App extends Component {
           </div>
           <div className="col-auto">
             <video id="preview" width="500"></video>
-            <div id="patientID"></div>
+            <div id="patientID">
+              {this.state.link}
+            </div>
           </div>
         </div>
         <div id="alertUser" className="text-center"></div>
@@ -75,7 +94,7 @@ class App extends Component {
 
 render(<Router>
     <Switch>
-      <Route exact path="/" component={App}/>
+      <Route exact path="/" component={Patient}/>
       <Route exact path="/patient/:id" component={Patient}/>
     </Switch>
   </Router>

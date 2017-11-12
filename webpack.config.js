@@ -26,6 +26,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(paths.SRC, 'index.html')
     }),
+    new HtmlWebpackPlugin({
+      template: path.join(paths.SRC, 'index.html'),
+      filename: "mainMenu.html"
+    }),
     new ExtractTextPlugin('style.bundle.css'),
     new webpack.ProvidePlugin({
       $: 'jquery',
