@@ -4,6 +4,9 @@ import PropTypes from 'prop-types'
 import plusButton from "../assets/plus.svg"
 import minusButton from "../assets/negative.svg"
 
+import PatientContract from "./PatientContract"
+import * as DoctorContract from './DoctorContract'
+
 class Patient extends Component {
 
   constructor(props) {
@@ -15,6 +18,7 @@ class Patient extends Component {
 
     this.handlePlusClick = this.handlePlusClick.bind(this)
     this.handleMinusClick = this.handleMinusClick.bind(this)
+    this.prescribe = this.prescribe.bind(this)
   }
 
   handlePlusClick(e){
@@ -39,11 +43,27 @@ class Patient extends Component {
     })
   }
 
+  prescribe(e) {
+    e.preventDefault()
+
+    let drugName = "obat"
+
+    // for (var i = 0; i < this.state.count; i++) {
+    //   let val = $("#tab"+i).val() +","
+    //   drugName +=  val
+    // }
+
+    DoctorContract.start()
+    DoctorContract.writePrescription(PatientContract.address, drugName, 10)
+  }
+
   render () {
 
     let forms= []
 
+    PatientContract.start()
 
+    PatientContract.getData()
 
     for (var i = 0; i < this.state.count; i++) {
       forms.push(
@@ -66,6 +86,10 @@ class Patient extends Component {
       </div>
     )
 
+    const cardStyle = {
+      width: "20rem"
+    }
+
     return (
       <div>
         <div className="section text-center py-5">
@@ -86,12 +110,19 @@ class Patient extends Component {
         </nav>
 
         <div className="row justify-content-center">
-          <div className="col-4 p-5">
+          <div className="col-3 p-5">
             <div id="patient-info">
-              <h3>Patient information</h3>
+              <div className="card">
+                <div className="card-body">
+                  <h3 className="card-title">Patient information</h3>
+                  <h6 className="card-subtitle mb-2 text-muted"><strong className="text-dark">ID: </strong><span id="ptssn"></span></h6>
+                  <h6 className="card-subtitle mb-2 text-muted"><strong className="text-dark">Insurance ID: </strong><span id="insid"></span></h6>
+                  <h6 className="card-subtitle mb-2 text-muted"><strong className="text-dark">Insurance Name: </strong><span id="insName"></span></h6>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="col-8 p-5">
+          <div className="col-9 p-5">
             <ul className="nav nav-tabs" role="tablist">
               <li className="nav-item">
                 <a className="nav-link active" href="#">Prescription</a>
@@ -117,7 +148,9 @@ class Patient extends Component {
                     {forms}
                     </tbody>
                   </table>
+                  <button className="btn btn-success" onClick={this.prescribe}>Prescribe</button>
                 </div>
+
               </div>
 
 

@@ -50,6 +50,8 @@ var DoctorManager = {
 
       var success = false
 
+      console.log(result)
+
       for (var i = 0; i < result.logs.length; i++) {
         var log = result.logs[i];
         if (log.event == "PrescriptionCreated") {

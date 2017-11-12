@@ -22,8 +22,6 @@ class App extends Component {
       link : ""
     };
 
-    this.text =""
-
   }
 
   componentDidMount () {
@@ -57,6 +55,8 @@ class App extends Component {
   }
 
   render () {
+
+
     return (
       <div>
         <div className="section text-center py-5">

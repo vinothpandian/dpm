@@ -50,6 +50,8 @@ var PatientManager = {
 
       var success = false
 
+
+
       for (var i = 0; i < result.logs.length; i++) {
         var log = result.logs[i];
         if (log.event == "PrescriptionCreated") {
@@ -113,7 +115,9 @@ var PatientManager = {
       return instance.getData.call({from: self.address});
     }).then(function(result) {
 
-      console.log(result)
+      $("#ptssn").text(result[0])
+      $("#insid").text(result[1])
+      $("#insName").text(result[2])
 
     }).catch(function(e) {
       console.log(e);
